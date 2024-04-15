@@ -86,4 +86,3 @@ TC8 Get user information by providing invalid token
     ...          expected_status_code=401        actual_status_code=${RESPONSE.status_code}
     Should Contain     ${RESPONSE.text}   Invalid Token
 
-

@@ -80,6 +80,3 @@ Verify Response Body Is Dictionary
     ${is_dict}=    Evaluate    isinstance(${body}, dict)
     Should Be True    ${is_dict}    The response body is not in dictionary form.
 
-
-
-

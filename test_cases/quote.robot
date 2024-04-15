@@ -21,5 +21,3 @@ TC2 Generate quote when invalid token is provided by user
     ...          expected_status_code=401        actual_status_code=${RESPONSE.status_code}
      Should Contain     ${RESPONSE.text}             token is invalid
 
-
-

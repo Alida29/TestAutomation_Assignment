@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.12.0 on win32)" generated="20240415 20:10:34.793" rpa="false" schemaversion="4">
+<suite id="s1" name="Weather" source="C:\Users\aines\Downloads\TestAssignment_Automation_Alida\test_cases\weather.robot">
+<test id="s1-t1" name="TC1 Get weather information when valid token is provided by user" line="6">
+<kw name="Get User Token" library="common" type="SETUP">
+<arg>name=test_user</arg>
+<arg>password=test_password</arg>
+<kw name="Sign up a new user" library="common">
+<arg>${random_name}</arg>
+<arg>${password}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${params}</var>
+<arg>name=${name}</arg>
+<arg>passwd=${password}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240415 20:10:34.892" level="INFO">${params} = {'name': 'name=test_user', 'passwd': 'test_password'}</msg>
+<status status="PASS" starttime="20240415 20:10:34.892" endtime="20240415 20:10:34.892"/>
+</kw>
+<kw name="post request" library="Hook">
+<var>${response}</var>
+<arg>${ENV_SIGNUP_URL}/signup</arg>
+<arg>${params}</arg>
+<msg timestamp="20240415 20:10:34.927" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<msg timestamp="20240415 20:10:34.927" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20240415 20:10:34.892" endtime="20240415 20:10:34.927"/>
+</kw>
+<status status="PASS" starttime="20240415 20:10:34.892" endtime="20240415 20:10:34.927"/>
+</kw>
+<kw name="extract token" library="Hook">
+<var>${token}</var>
+<arg>text=${response.text}</arg>
+<msg timestamp="20240415 20:10:34.928" level="INFO">${token} = 447c0e77f480debf63e58247d1743b43</msg>
+<status status="PASS" starttime="20240415 20:10:34.927" endtime="20240415 20:10:34.928"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${token}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20240415 20:10:34.928" level="INFO">${token} = 447c0e77f480debf63e58247d1743b43</msg>
+<status status="PASS" starttime="20240415 20:10:34.928" endtime="20240415 20:10:34.928"/>
+</kw>
+<status status="PASS" starttime="20240415 20:10:34.886" endtime="20240415 20:10:34.928"/>
+</kw>
+<kw name="Return weather information with valid token" library="common">
+<arg>token=${token}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${params}</var>
+<arg>token=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240415 20:10:34.929" level="INFO">${params} = {'token': '447c0e77f480debf63e58247d1743b43'}</msg>
+<status status="PASS" starttime="20240415 20:10:34.929" endtime="20240415 20:10:34.929"/>
+</kw>
+<kw name="get request" library="Hook">
+<var>${response}</var>
+<arg>${ENV_WEATHER_URL}/weather</arg>
+<arg>${params}</arg>
+<msg timestamp="20240415 20:10:35.001" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<msg timestamp="20240415 20:10:35.001" level="INFO">${response} = None</msg>
+<status status="PASS" starttime="20240415 20:10:34.929" endtime="20240415 20:10:35.001"/>
+</kw>
+<status status="PASS" starttime="20240415 20:10:34.929" endtime="20240415 20:10:35.001"/>
+</kw>
+<kw name="verify response status code" library="Hook">
+<arg>expected_status_code=200</arg>
+<arg>actual_status_code=${RESPONSE.status_code}</arg>
+<status status="PASS" starttime="20240415 20:10:35.001" endtime="20240415 20:10:35.002"/>
+</kw>
+<kw name="Verify response body schema" library="Hook">
+<arg>${RESPONSE.text}</arg>
+<status status="PASS" starttime="20240415 20:10:35.002" endtime="20240415 20:10:35.002"/>
+</kw>
+<doc>verifies that user can generate quote when valid token is provided</doc>
+<status status="PASS" starttime="20240415 20:10:34.886" endtime="20240415 20:10:35.002"/>
+</test>
+<test id="s1-t2" name="TC2 Get weather information when invalid token is provided by user" line="14">
+<kw name="Get random token" library="common" type="SETUP">
+<kw name="generate uuid" library="Hook">
+<var>${invalid_token}</var>
+<msg timestamp="20240415 20:10:35.004" level="INFO">${invalid_token} = 7e8226e4-a707-4e70-b4ba-946efdff723d</msg>
+<status status="PASS" starttime="20240415 20:10:35.003" endtime="20240415 20:10:35.004"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${invalid_token}</arg>
+<arg>${invalid_token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20240415 20:10:35.004" level="INFO">${invalid_token} = 7e8226e4-a707-4e70-b4ba-946efdff723d</msg>
+<status status="PASS" starttime="20240415 20:10:35.004" endtime="20240415 20:10:35.004"/>
+</kw>
+<status status="PASS" starttime="20240415 20:10:35.003" endtime="20240415 20:10:35.004"/>
+</kw>
+<kw name="Return weather information with random token" library="common">
+<arg>token=${invalid_token}</arg>
+<kw name="Get random token" library="common">
+<var>${invalid_token}</var>
+<kw name="generate uuid" library="Hook">
+<var>${invalid_token}</var>
+<msg timestamp="20240415 20:10:35.004" level="INFO">${invalid_token} = 8b921908-20ae-4b88-abed-8f95af4bd39e</msg>
+<status status="PASS" starttime="20240415 20:10:35.004" endtime="20240415 20:10:35.004"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${invalid_token}</arg>
+<arg>${invalid_token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20240415 20:10:35.005" level="INFO">${invalid_token} = 8b921908-20ae-4b88-abed-8f95af4bd39e</msg>
+<status status="PASS" starttime="20240415 20:10:35.004" endtime="20240415 20:10:35.005"/>
+</kw>
+<msg timestamp="20240415 20:10:35.005" level="INFO">${invalid_token} = None</msg>
+<status status="PASS" starttime="20240415 20:10:35.004" endtime="20240415 20:10:35.005"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${params}</var>
+<arg>token=${invalid_token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240415 20:10:35.005" level="INFO">${params} = {'token': None}</msg>
+<status status="PASS" starttime="20240415 20:10:35.005" endtime="20240415 20:10:35.005"/>
+</kw>
+<kw name="get request" library="Hook">
+<var>${invalid_token}</var>
+<arg>${ENV_WEATHER_URL}/weather</arg>
+<arg>${params}</arg>
+<msg timestamp="20240415 20:10:35.023" level="INFO">${RESPONSE} = &lt;Response [422]&gt;</msg>
+<msg timestamp="20240415 20:10:35.023" level="INFO">${invalid_token} = None</msg>
+<status status="PASS" starttime="20240415 20:10:35.005" endtime="20240415 20:10:35.023"/>
+</kw>
+<status status="PASS" starttime="20240415 20:10:35.004" endtime="20240415 20:10:35.023"/>
+</kw>
+<kw name="verify response status code" library="Hook">
+<arg>expected_status_code=200</arg>
+<arg>actual_status_code=${RESPONSE.status_code}</arg>
+<msg timestamp="20240415 20:10:35.023" level="FAIL">Actual Status Code is 422, not 200 as expected.
+</msg>
+<status status="FAIL" starttime="20240415 20:10:35.023" endtime="20240415 20:10:35.026"/>
+</kw>
+<kw name="Verify response body schema" library="Hook">
+<arg>${RESPONSE.text}</arg>
+<status status="NOT RUN" starttime="20240415 20:10:35.026" endtime="20240415 20:10:35.026"/>
+</kw>
+<doc>Verifies that user cannot get weather information when an invalid token is provided</doc>
+<tag>weather1</tag>
+<status status="FAIL" starttime="20240415 20:10:35.002" endtime="20240415 20:10:35.026">Actual Status Code is 422, not 200 as expected.
+</status>
+</test>
+<doc>Test collection for registration system</doc>
+<status status="FAIL" starttime="20240415 20:10:34.794" endtime="20240415 20:10:35.027"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">weather1</stat>
+</tag>
+<suite>
+<stat pass="1" fail="1" skip="0" id="s1" name="Weather">Weather</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
